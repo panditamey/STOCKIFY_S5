@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+        <!-- MDB -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
+    <title>Register</title>
+</head>
+{% block content %}
+<body>
+    <div class="text-center align-items-center justify-content-center" style="margin-top: 350px;">
+
+    <h1>Pay ₹999 to get Promo Code</h1>
+    <button type="button" class="btn btn-danger btn-rounded" id="rzp-button1">Pay ₹999 - {{id}}</button>
+
+    </div>
+</body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    let id = "{{id|safe}}"
+var options = {
+    "key": "rzp_test_jmo9zQ3obMeuLP", // Enter the Key ID generated from the Dashboard
+    "amount": 999*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "TO STOKIFY",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "https://bit.ly/3CCGqDD",
+    
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+{% endblock %}
+</html>
